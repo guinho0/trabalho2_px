@@ -14,7 +14,7 @@ struct pessoa {
   char cpf[15];
   int idade;
   int id;
-  int doença[2];
+  int doenca[2];
   int entrada, E_raiox, S_raiox, E_laudo, S_laudo;
 };
 struct node {
@@ -144,36 +144,36 @@ int gera_pessoa(){
   }
   return 0;
 }
-int *gera__doença(){
-  int gera__doença = rand() % 100;
-  int *doença = (int*)malloc(sizeof(int)*2);
+int *gera__doenca(){
+  int gera__doenca = rand() % 100;
+  int *doenca = (int*)malloc(sizeof(int)*2);
   int sn = 1;
   int b = 2;
   int p = 3;
   int ff = 4;
   int a = 4;
 
-  if(gera__doença < 30 ){
-    doença[0] = 1;
-    doença[1] = sn;
+  if(gera__doenca < 30 ){
+    doenca[0] = 1;
+    doenca[1] = sn;
   }
-  else if (gera__doença >= 30 && gera__doença < 50){
-    doença[0] = 2;
-    doença[1] = b;
+  else if (gera__doenca >= 30 && gera__doenca < 50){
+    doenca[0] = 2;
+    doenca[1] = b;
   }
-  else if (gera__doença >= 50 && gera__doença < 70){
-    doença[0] = 3;
-    doença[1] = p;
+  else if (gera__doenca >= 50 && gera__doenca < 70){
+    doenca[0] = 3;
+    doenca[1] = p;
   }
-  else if (gera__doença >= 70 && gera__doença < 85){
-    doença[0] = 4;
-    doença[1] = ff;
+  else if (gera__doenca >= 70 && gera__doenca < 85){
+    doenca[0] = 4;
+    doenca[1] = ff;
   }
-  else if (gera__doença >= 85){
-    doença[0] = 5;
-    doença[1] = a;
+  else if (gera__doenca >= 85){
+    doenca[0] = 5;
+    doenca[1] = a;
   }
-  return doença;
+  return doenca;
 }
 int gera__raiox(){
   int gera__raiox = 5 + (rand() % 6);
@@ -200,17 +200,17 @@ int gera_idade() {
 }
 Pessoa *gera_paciente(int id){
   Pessoa *paciente = (Pessoa*)malloc(sizeof(Pessoa));
-  int *doença = (int*)malloc(sizeof(int)*2);
-  doença = gera__doença();
+  int *doenca = (int*)malloc(sizeof(int)*2);
+  doenca = gera__doenca();
   // Gera aleatoriamente o nome, CPF e idade
   strcpy(paciente->nome, gera_nome());
   strcpy(paciente->cpf, gera_cpf());
   paciente->idade = gera_idade();
   paciente->id = id;
-  paciente->doença[0] = doença[0];
-  paciente->doença[1] = doença[1];
+  paciente->doenca[0] = doenca[0];
+  paciente->doenca[1] = doenca[1];
   paciente->entrada = id;
-  free(doença);
+  free(doenca);
   return paciente;
 }
 void ordenado(Fila *fila, Pessoa *pessoa) {
@@ -226,7 +226,7 @@ void ordenado(Fila *fila, Pessoa *pessoa) {
         return;
     }
     Node *atual = fila->Front;
-    while (atual != NULL && pessoa->doença[1] <= ((Pessoa *)atual->data)->doença[1]) {
+    while (atual != NULL && pessoa->doenca[1] <= ((Pessoa *)atual->data)->doenca[1]) {
         atual = atual->Next;
     }
     // Insere o novo na posição correta
@@ -394,7 +394,7 @@ float media_laudo(List *geral){
   } 
   return 0.0;
 }
-void media_doenças(List *geral, Hospital *h) {
+void media_doencas(List *geral, Hospital *h) {
     if (geral->First == NULL) {
         return;
     }
@@ -404,7 +404,7 @@ void media_doenças(List *geral, Hospital *h) {
         int counter = 0;
         while (aux != NULL) {
             Pessoa *paciente = (Pessoa *)aux->data;
-            if (paciente->S_laudo != 0 && paciente->doença[0] == h->reg[i][0]) {
+            if (paciente->S_laudo != 0 && paciente->doenca[0] == h->reg[i][0]) {
                 somas += paciente->S_laudo - paciente->entrada;
                 counter++;
             }
@@ -438,7 +438,7 @@ int pos_tempo(List *geral){
   return counter;
 } 
 void printa_metrica(List *geral, Hospital *h){
-  media_doenças(geral,  h);
+  media_doencas(geral,  h);
   printf("laudo: %f\ndoencas:\nsn: %f\nb: %f\np: %f\nff: %f\na: %f\nFora do tempo: %d\n\n", media_laudo(geral),  h->reg[0][1], h->reg[1][1], h->reg[2][1], h->reg[3][1], h->reg[4][1], pos_tempo(geral));
 }
 void libera_hospital(Hospital *h) {

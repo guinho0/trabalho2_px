@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "hospital.h"
 
+
 int main() {
   List *listGeral = cria_lista();
   Fila *Entrada = cria_fila();
